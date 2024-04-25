@@ -11,7 +11,7 @@ ID,Nome,PastaOrigem,PastaDestino,PastaBackup
 Após o envio do CSV, o aplicativo lhe mostrará dois tipos de diagrama: um hierárquico - para visualização das aplicações - e um interativo - para visualização dos caminhos que uma pasta faz.
 
 
-:point_left: *Notas* Devido  à natureza da API gratuita que estamos utilizando, pode haver atrasos ocasionais no tempo de resposta após o envio do CSV. Recomendamos o uso em computadores ou notebooks para uma melhor visualização dos dados. 
+:point_left: *Notas* Devido  à natureza da API gratuita que estamos utilizando, pode haver atrasos ocasionais no tempo de resposta após o envio do CSV. Recomendamos o uso em computadores ou notebooks para uma melhor visualização dos dados e o acesso pelo link (https://camilacarniel.github.io/). 
 
 Para utilizar o aplicativo, siga os passos abaixo:
 
