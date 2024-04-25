@@ -1,0 +1,74 @@
+<!-- PRIMEIRA PÁGINA - Página inicial e carregamento do csv -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hackathon hiperstream 2024</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <script src="fundo.js" defer></script>
+
+</head>
+
+<body>
+
+  <!-- Template utilizado-->
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Fundo -->
+  <div id="canvas-container">
+
+    <div id="background"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- Configurações carregamento de arquivos -->
+    <div id="canvas-header-overlay" class="sm:max-w-lg w-full p-25 bg-white rounded-xl z-10">
+      <div class="text-center mb-5">
+        <h2 class="mt-2 text-3xl font-bold text-gray-900">
+          Fluxo da informação!
+        </h2>
+        <p class="mt-3 text-sm text-gray-400">Visualização do diagrama exemplificando o fluxo.
+          <br>Grupo: SegundaGraduação + Miguel
+        </p>
+      </div>
+
+      <!-- Carregar arquivos -->
+      <form class="mt-5 space-y-3" id="fileForm" action="#" method="POST"
+        onsubmit="event.preventDefault(); sendPostRequest()">
+        <div class="grid grid-cols-1 space-y-2">
+          <div class="flex items-center justify-center w-full">
+
+            <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-75 p-20 group text-center">
+              <div class="h-full w-full text-center flex flex-col items-center justify-center">
+
+                <input type="file" id="fileUpload" for="fileUpload" name="fileUpload"><br><br>
+                <div id="errorDisplay" class="hidden text-red-500"></div>
+
+                <!-- Imagem de upload -->
+                <img for="fileUpload" class=" h-25 object-center" src="upload.png" alt="Upload Icone">
+                <input type="button" value="Enviar arquivo"
+                  class="my-5 w-full flex justify-center bg-gray-800 text-gray-100 p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-gray-700 shadow-lg cursor-pointer transition ease-in duration-300"
+                  onclick="sendPostRequest()">
+                <input type="file" id="fileUpload" class="hidden" onchange="updateFileName()">
+                <p class="text-sm text-gray-400">
+                  <span>Arquivos aceitos: csv</span>
+                </p>
+                <div id="selectedFileName" class="hidden">
+                </div>
+              </div>
+            </label>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

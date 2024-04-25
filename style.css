@@ -1,0 +1,70 @@
+/* Estilos da tela inicial */
+
+/* 01. Imagem de fundo */
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('fundo_grad.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+}
+
+/* 02. Canvas com informações */
+#canvas-header-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.canvas-overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  text-align: center;
+}
+
+#canvas-header-overlay h2 {
+  font-size: 2rem;
+}
+
+#canvas-header-overlay p {
+  font-size: 1rem;
+}
+
+#canvas-header-overlay .flex-col {
+  width: 80%;
+}
+
+#canvas-header-overlay .h-25 {
+  height: 50%;
+}
+
+/* 03. Carregar arquivos */
+#fileForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#fileForm label {
+  margin-bottom: 20px;
+}
+
+#fileUpload {
+  margin-bottom: 10px;
+}
+
+#selectedFileName {
+  margin-top: 10px;
+}

@@ -1,0 +1,32 @@
+/* Estilos do Diagrama */
+
+/* 01. Botão Toggle */
+#toggleButton {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+
+/* 02. Legenda Toggle */
+#canvas-container {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  width: 300px;
+  padding: 20px;
+  background-color: rgb(27, 31, 39);
+  z-index: 1000;
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#canvas-container h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e2e2e2;
+}
+
+#canvas-container p {
+  font-size: 0.875rem;
+  color: #f7f7f7;
+}

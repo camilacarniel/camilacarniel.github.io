@@ -1,0 +1,34 @@
+{
+  "name": "Root",
+  "isBackup": false,
+  "children": [
+    {
+      "name": "Aplicacao1",
+      "isBackup": false,
+      "children": [
+        {
+          "name": "Aplicacao4",
+          "isBackup": false
+        },
+        {
+          "name": "Aplicacao2",
+          "isBackup": false,
+          "children": [
+            {
+              "name": "Aplicacao3",
+              "isBackup": true
+            },
+            {
+              "name": "Aplicacao6",
+              "isBackup": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Aplicacao5",
+      "isBackup": false
+    }
+  ]
+}

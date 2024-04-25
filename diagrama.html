@@ -1,0 +1,66 @@
+<!-- SEGUNDA PÁGINA - Visualização dos dois tipos de diagrama -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagramas</title>
+  <link rel="stylesheet" href="style_diagrama.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <!-- Previnir o zoom da tela de distorções e configurar o botão -->
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      height: 100%;
+      position: relative;
+    }
+  </style>
+
+</head>
+
+<!-- Primeira opção: Gráfico interativo, Segunda opção: Diagrama hierárquico de árvore -->
+
+<body>
+
+  <!-- Botão toggle -> para ver configurações ir em script.js -->
+  <button class="my-5 mx-auto bg-gray-800 text-gray-100 p-5 rounded-full tracking-wide font-semibold focus:outline-none
+    focus:shadow-outline hover:bg-gray-700 shadow-lg cursor-pointer transition ease-in duration-100"
+    id="toggleButton">Trocar visualização do diagrama
+  </button>
+
+  <div id="chartContainer">
+    <div id="canvas-container">
+      <div id="canvas-header-overlay" class="sm:max-w-lg w-full p-2 bg-gray rounded-xl z-10">
+        <div class="text-center">
+          <h2 class="text-2xl font-bold text-gray-900">
+            Legenda
+          </h2>
+          <p class="mt-1 text-sm text-gray-400" id="legendDescription">Diagrama mostrando os caminhos que os arquivos
+            fazem e suas correlações</p>
+        </div>
+        <!-- Itens da Legenda inicial-->
+        <div class="text-sm text-gray-400 mt-3" id="legendItems">
+          <p class="mt-1"><span class="font-bold">PgDown</span> ↓ - Aumenta o espaçamento entre nodes</p>
+          <p class="mt-3"><span class="font-bold">PgUp</span> ↑ - Diminui o espaçamento entre nodes</p>
+          <p class="mt-3"><span class="font-bold">→</span> - Setas indicando a origem e destino, respectivamente</p>
+          <p class="mt-3"><span class="font-bold">◉</span> - Pastas</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trocar legenda e gráfico ao ser acionado. Interativo -> Árvore -->
+    <svg id="chartSvg"></svg>
+    <script src="script.js"></script>
+  </div>
+  <script>toggleVisualization();</script>
+</body>
+
+</html>
