@@ -51,6 +51,6 @@ Esperamos que este guia seja útil para utilizar nosso aplicativo. Se tiver algu
 Obrigado por utilizar o nosso aplicativo! :smiley:
 
 ## Equipe
-*Desenvolvido por: Camila Carniel,Pedro Moniz, Mateus Magalhães e Miguel Piñeiro.*
+*Desenvolvido por: Camila Carniel, Pedro Moniz, Mateus Magalhães e Miguel Piñeiro.*
 Licença MIT - consulte o arquivo
 

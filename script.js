@@ -47,10 +47,10 @@ async function sendPostRequest() {
       localStorage.setItem('promisedData',JSON.stringify(bodyResposta))
       window.location.href = 'diagrama.html';
     } else {
-        displayError('Erro ao carregar arquivo. Por favor, tente novamente.');
+        displayError('Arquivo inválido. Por favor, verifique o modelo aceito.');
     }
   } catch (e) {
-    displayError('Por favor, tente novamente.');
+    displayError('Arquivo inválido. Por favor, verifique o modelo aceito.');
     console.error(e);
   }
 }
