@@ -44,7 +44,7 @@ https://www.amcharts.com/demos/force-directed-network/ (Diagrama interativo de f
 - JavaScript
 - HTML/CSS
 - Pandas
-- FastAPI
+- FastAPI (Documentação: https://hyperstreamapi.onrender.com/docs)
 
 Esperamos que este guia seja útil para utilizar nosso aplicativo. Se tiver alguma dúvida ou problema, não hesite em nos contatar.
 
