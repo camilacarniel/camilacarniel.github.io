@@ -8,10 +8,12 @@ Este aplicativo permite importar um arquivo CSV e enviar para visualização. O 
 ID,Nome,PastaOrigem,PastaDestino,PastaBackup
 
 
-Após o envio do CSV, o aplicativo lhe mostrará dois tipos de diagrama: um hierárquico - para visualização das aplicações - e um interativo - para visualização dos caminhos que uma pasta faz.
+Após o envio do CSV, o aplicativo lhe mostrará dois tipos de diagrama: um hierárquico - para visualização das aplicações - e um interativo - para visualização dos caminhos que uma pasta faz. Os arquivos ficam armazenados em cachê e, após o seu carregamento, é possível recarregar os gráficos atualizando a página.
 
+*Notas* Devido  à natureza da API gratuita que estamos utilizando, pode haver atrasos ocasionais no tempo de resposta após o envio do CSV.
 
-:point_left: *Notas* Devido  à natureza da API gratuita que estamos utilizando, pode haver atrasos ocasionais no tempo de resposta após o envio do CSV. Recomendamos o uso em computadores ou notebooks para uma melhor visualização dos dados e o acesso pelo link (https://camilacarniel.github.io/). 
+## Pré requisitos
+:point_left:  Executar o aplicativo em computadores ou notebooks para uma melhor visualização dos dados. Acesso pelo link (https://camilacarniel.github.io/). 
 
 Para utilizar o aplicativo, siga os passos abaixo:
 
@@ -37,8 +39,18 @@ https://www.amcharts.com/demos/tree-chart/ (Diagrama hierárquico de árvore).
 https://www.amcharts.com/demos/force-directed-network/ (Diagrama interativo de fluxo).
 [![Alternar as visualizações](https://github.com/camilacarniel/camilacarniel.github.io/blob/main/Captura%203.PNG "Alternar as visualizações")](http://https://github.com/camilacarniel/camilacarniel.github.io/blob/main/Captura%203.PNG "Alternar as visualizações")
 
+## Tecnologias utilizadas
+- Python
+- JavaScript
+- HTML/CSS
+- Pandas
+- FastAPI
+
 Esperamos que este guia seja útil para utilizar nosso aplicativo. Se tiver alguma dúvida ou problema, não hesite em nos contatar.
 
 Obrigado por utilizar o nosso aplicativo! :smiley:
 
+## Equipe
 *Desenvolvido por: Camila Carniel,Pedro Canto, Mateus Magalhães e Miguel Piñeiro.*
+Licença MIT - consulte o arquivo
+
