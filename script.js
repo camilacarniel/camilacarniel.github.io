@@ -5,19 +5,16 @@ var svg = document.getElementById('chartSvg');
 var nodeAttraction = -800;
 var simulation;
 
-function updateSVGDimensions() {
-  var innerWidth = window.innerWidth;
-  var innerHeight = window.innerHeight;
-  svg.setAttribute('width', innerWidth);
-  svg.setAttribute('height', innerHeight);
-}
-
-updateSVGDimensions();
-window.addEventListener('resize', updateSVGDimensions);
+ function updateSVGDimensions() {
+   var innerWidth = window.innerWidth;
+   var innerHeight = window.innerHeight;
+   svg.setAttribute('width', innerWidth);
+   svg.setAttribute('height', innerHeight);
+ }
 
 
 
-// -------------------------------------------------
+// ---------------------------------------------
 //  Envio de arquivo na página inicial 
 
 function updateFileName() {
@@ -35,35 +32,28 @@ function displayError(message) {
   errorDisplay.classList.remove('hidden');
 }
 
-function sendPostRequest() {
+async function sendPostRequest() {
   var input = document.getElementById('fileUpload');
   var file = input.files[0];
   var formData = new FormData();
-
   formData.append('file', file);
-
-  fetch('https://hyperstreamapi.onrender.com/uploadcsv/', {
-    method: 'POST',
-    body: formData
-  })
-    .then(response => {
-      if (response.ok) {
-        if (file.type === 'text/csv') {
-          window.location.href = 'diagrama.html';
-        } else {
-          displayError('O arquivo carregado não é um CSV. Por favor, tente novamente.');
-        }
-      } else {
-        displayError('Erro ao carregar arquivo. Por favor, tente novamente.');
-      }
+  try {
+    const resposta = await fetch('https://hyperstreamapi.onrender.com/uploadcsv/', {
+      method: 'POST',
+      body: formData
     })
-    .catch(error => {
-      displayError('Por favor, tente novamente.');
-      console.error(error);
-    });
+    if (resposta.ok) {
+      const bodyResposta = await resposta.json();
+      localStorage.setItem('promisedData',JSON.stringify(bodyResposta))
+      window.location.href = 'diagrama.html';
+    } else {
+        displayError('Erro ao carregar arquivo. Por favor, tente novamente.');
+    }
+  } catch (e) {
+    displayError('Por favor, tente novamente.');
+    console.error(e);
+  }
 }
-
-
 
 // -------------------------------------------------
 // GRÁFICO DE REDE
@@ -78,7 +68,7 @@ function linkArc(d) {
 function createNetChart(data) {
   const width = window.innerWidth;
   const height = window.innerHeight;
-
+  console.log('chartNet',data.children)
   const nodes = Array.from(new Set(data.children.flatMap(d => [d.name, ...d.children.map(c => c.name)])), id => ({ id, r: 5 }));
   const links = data.children.flatMap(d => d.children.map(c => ({ source: d.name, target: c.name })));
 
@@ -224,9 +214,6 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
-
-
-
 // -------------------------------------------------
 // Definição da função para PANZOOM
 
@@ -295,12 +282,14 @@ function initializePanzoom() {
 // -------------------------------------------------
 // GRÁFICO DE ÁRVORE
 
-function createRadialTreeChart(data) {
+function createHorizontalTreeChart(data) {
   const width = window.innerWidth;
   const height = window.innerHeight;
   const cx = width * 0.5;
   const cy = height * 0.59;
-  const radius = Math.min(width, height) / 2 - 30;
+  const margin = { top: 10, right: 120, bottom: 10, left: 40 };
+  // Define a color scale
+  const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
   // Atribuir profundidade para os nodes
   function assignDepth(node, depth) {
@@ -311,27 +300,29 @@ function createRadialTreeChart(data) {
   }
   assignDepth(data, 0);
 
-  // Criar layout de árvore radial. A primeira dimensão do layout (x) é o ângulo, e a segunda (y) é o raio.
+  // Criar layout de árvore horizontal. A primeira dimensão do layout (x) é a altura, e a segunda (y) é a largura.
   const tree = d3.tree()
-    .size([2 * Math.PI, radius])
-    .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+    .size([height - margin.top - margin.bottom, width - margin.right - margin.left]);
 
   // Ordenar árvore
   const root = tree(d3.hierarchy(data)
     .sort((a, b) => d3.ascending(a.data.name, b.data.name)));
 
+  // Calculate the spacing between nodes based on the width
+  const nodeSpacing = width / (root.height + 1);
+
   //SVG Container.
   const svg = d3.create("svg")
     .attr("width", width)
     .attr("height", height)
-    .attr("viewBox", [-cx, -cy, width, height])
+    .attr("viewBox", [0, 0, width, height])
     .attr("style", "width: 100%; height: auto; font: 10px sans-serif;");
 
-  // Atribuir cores com base na profundidade dos caminhos dos nodes
-  const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+  const g = svg.append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Adicionar links.
-  svg.append("g")
+  g.append("g")
     .attr("fill", "none")
     .attr("stroke", "#555")
     .attr("stroke-opacity", 0.4)
@@ -339,33 +330,30 @@ function createRadialTreeChart(data) {
     .selectAll()
     .data(root.links())
     .join("path")
-    .attr("d", d3.linkRadial()
-      .angle(d => d.x)
-      .radius(d => d.y));
+    .attr("d", d3.linkHorizontal()
+      .x(d => d.y)
+      .y(d => d.x));
 
   // Adicionar pastas como nodes.
-  svg.append("g")
+  const node = g.append("g")
     .selectAll()
     .data(root.descendants())
-    .join("circle")
-    .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
+    .join("g")
+    .attr("transform", d => `translate(${d.depth * nodeSpacing},${d.x})`);
+
+  node.append("circle")
     .attr("fill", d => colorScale(d.data.isBackup ? d.depth - 1 : d.depth))
     .attr("r", 2.5);
 
   // Adicionar legendas.
-  svg.append("g")
-    .attr("stroke-linejoin", "round")
-    .attr("stroke-width", 3)
-    .selectAll()
-    .data(root.descendants())
-    .join("text")
-    .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0) rotate(${d.x >= Math.PI ? 180 : 0})`)
+  node.append("text")
     .attr("dy", "0.31em")
-    .attr("x", d => d.x < Math.PI === !d.children ? 6 : -6)
-    .attr("text-anchor", d => d.x < Math.PI === !d.children ? "start" : "end")
+    .attr("x", d => d.children ? -6 : 6)
+    .attr("text-anchor", d => d.children ? "end" : "start")
     .attr("paint-order", "stroke")
     .attr("stroke", "white")
     .attr("fill", "currentColor")
+    .attr("transform", "rotate(4)") // Rotate the text
     .text(d => d.data.name);
 
   return svg.node();
@@ -376,42 +364,38 @@ function createRadialTreeChart(data) {
 
 var currentVisualization = 1;
 
-document.getElementById('toggleButton').addEventListener('click', function() {
-  toggleVisualization();
-});
+if(document.title === 'Diagramas') {
+  document.getElementById('toggleButton').addEventListener('click', function() {
+    toggleVisualization();
+  });
+}
 
 function toggleVisualization() {
+  updateSVGDimensions();
+  //window.addEventListener('resize', updateSVGDimensions);
+  const promised_data = JSON.parse(localStorage.getItem('promisedData'));
+  console.log(promised_data);
   if (currentVisualization === 1) {
-    // CONFIG: Diagrama interativo
-    fetch('https://hyperstreamapi.onrender.com/testdata/')
-      .then(response => response.json())
-      .then(data => {
-        const chart = createNetChart(data);
+      // CONFIG: Diagrama interativo
+      const chart = createNetChart(promised_data.network);
 
-        document.getElementById("chartSvg").innerHTML = '';
-        document.getElementById("chartSvg").appendChild(chart);
+      document.getElementById("chartSvg").innerHTML = '';
+      document.getElementById("chartSvg").appendChild(chart);
 
-        initializePanzoom();
-      })
-      .catch(error => console.error('Error loading JSON file:', error));
-    currentVisualization = 2;
-    console.log("currentVisualization: ", currentVisualization)
-    toggleDescription(2);
+      initializePanzoom();
+      currentVisualization = 2;
+      console.log("currentVisualization: ", currentVisualization)
+      toggleDescription(2);
 
   } else {
 
     // CONFIG: Gráfico de árvore
-    fetch('testMateus.json')
-      .then(response => response.json())
-      .then(data => {
-        const chart = createRadialTreeChart(data);
+    const chart = createHorizontalTreeChart(promised_data.tree);
 
-        document.getElementById("chartSvg").innerHTML = '';
-        document.getElementById("chartSvg").appendChild(chart);
+    document.getElementById("chartSvg").innerHTML = '';
+    document.getElementById("chartSvg").appendChild(chart);
 
-        initializePanzoom();
-      })
-      .catch(error => console.error('Error loading JSON file:', error));
+    initializePanzoom();
     currentVisualization = 1;
     console.log("currentVisualization:", currentVisualization);
     toggleDescription(1);

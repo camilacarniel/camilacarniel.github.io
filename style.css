@@ -4,7 +4,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url('fundo_grad.jpg');
+  background-image: url('Imagens/fundo_grad.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -67,4 +67,8 @@ body {
 
 #selectedFileName {
   margin-top: 10px;
+}
+
+.hiddenInput {
+  display: none;
 }

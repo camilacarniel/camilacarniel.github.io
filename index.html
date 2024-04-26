@@ -37,35 +37,34 @@
       </div>
 
       <!-- Carregar arquivos -->
-      <form class="mt-5 space-y-3" id="fileForm" action="#" method="POST"
-        onsubmit="event.preventDefault(); sendPostRequest()">
+      <form class="mt-5 space-y-3" id="fileForm" >
         <div class="grid grid-cols-1 space-y-2">
           <div class="flex items-center justify-center w-full">
 
             <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-75 p-20 group text-center">
               <div class="h-full w-full text-center flex flex-col items-center justify-center">
 
-                <input type="file" id="fileUpload" for="fileUpload" name="fileUpload"><br><br>
                 <div id="errorDisplay" class="hidden text-red-500"></div>
-
                 <!-- Imagem de upload -->
-                <img for="fileUpload" class=" h-25 object-center" src="upload.png" alt="Upload Icone">
-                <input type="button" value="Enviar arquivo"
-                  class="my-5 w-full flex justify-center bg-gray-800 text-gray-100 p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-gray-700 shadow-lg cursor-pointer transition ease-in duration-300"
-                  onclick="sendPostRequest()">
-                <input type="file" id="fileUpload" class="hidden" onchange="updateFileName()">
+                <img  class=" h-25 object-center" src="Imagens/upload.png" alt="Upload Icone"/>
+                <input type="file"
+                  accept=".csv"
+                  id="fileUpload"
+                  class="hiddenInput"
+                  onchange="updateFileName()"/>
                 <p class="text-sm text-gray-400">
                   <span>Arquivos aceitos: csv</span>
                 </p>
-                <div id="selectedFileName" class="hidden">
-                </div>
+                <div id="selectedFileName" class="hidden"></div>
               </div>
             </label>
           </div>
-
         </div>
       </form>
 
+      <button id="buttonEnvio"
+      class="my-5 w-full flex justify-center bg-gray-800 text-gray-100 p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-gray-700 shadow-lg cursor-pointer transition ease-in duration-300"
+      onclick="sendPostRequest()">Enviar Arquivo</button>
     </div>
   </div>
   <script src="script.js"></script>
