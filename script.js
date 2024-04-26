@@ -427,6 +427,7 @@ function toggleDescription(setTo) {
     legendItems.innerHTML = `
     <p class="mt-1"><span class="font-bold">◉</span> - Aplicações</p>
       <p class="mt-3"><span class="font-bold">Conexão →</span> - Ligação entre Aplicações</p>
+      <p class="mt-3">Se duas aplicações conectadas têm a mesma cor, então há uma relação de backup</p>
     `;
     toggleButton.innerText = "Visualizar Diagrama de Pastas";
 
